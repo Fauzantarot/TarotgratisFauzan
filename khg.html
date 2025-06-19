@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembacaan Tarot 3 Kartu Gratis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* Kode CSS langsung di sini */
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #2c003e, #6a058c); /* Gradien ungu gelap */
+            color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparan untuk efek mistis */
+            padding: 35px 50px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #ffcc66; /* Warna emas */
+            margin-bottom: 20px;
+            font-size: 2.8em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: #e0e0e0;
+        }
+
+        .spread-labels {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffcc66;
+            margin-bottom: 30px;
+        }
+
+        .label-item {
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        #drawCardsBtn {
+            background-color: #ffcc66; /* Emas */
+            color: #4a005c; /* Ungu gelap */
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #drawCardsBtn:hover {
+            background-color: #ffd680;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .tarot-spread {
+            display: flex;
+            justify-content: center; /* Posisikan di tengah */
+            flex-wrap: wrap;
+            gap: 30px; /* Jarak antar kartu */
+            margin-bottom: 50px;
+        }
+
+        .card-slot {
+            background-color: rgba(255, 255, 255, 0.08); /* Sedikit transparan untuk latar belakang slot */
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            width: 200px; /* Lebar slot kartu */
+            height: 330px; /* Tinggi slot kartu */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-slot:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Pastikan gambar mengisi slot tanpa distorsi */
+            border-radius: 12px;
+            display: none; /* Sembunyikan gambar kartu sampai ditarik */
+            animation: fadeIn 1s ease-out forwards; /* Animasi muncul */
+        }
+
+        .card-slot.revealed img {
+            display: block; /* Tampilkan gambar kartu saat diungkapkan */
+        }
+
+        .card-slot span {
+            font-size: 1.2em;
+            color: #ffcc66;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px 15px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .interpretations {
+            text-align: left;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .interpretation-item {
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .interpretation-item h3 {
+            font-family: 'Playfair Display', serif;
+            color: #ffcc66;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .interpretation-item p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #e8e8e8;
+            margin-bottom: 0;
+        }
+
+        /* Animasi Fade In */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 30px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            #drawCardsBtn {
+                font-size: 1.1em;
+                padding: 15px 25px;
+            }
+            .card-slot {
+                width: 150px;
+                height: 250px;
+            }
+            .spread-labels {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 0.95em;
+            }
+            #drawCardsBtn {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+            .tarot-spread {
+                flex-direction: column;
+                align-items: center;
+            }
+            .card-slot {
+                width: 180px;
+                height: 280px;
+            }
+            .interpretation-item h3 {
+                font-size: 1.4em;
+            }
+            .interpretation-item p {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pembacaan Tarot 3 Kartu Gratis</h1>
+        <p>Fokuskan pertanyaanmu atau niatmu, lalu klik tombol di bawah untuk mengungkapkan tiga kartu tarotmu yang mewakili:</p>
+        <p class="spread-labels">
+            <span class="label-item">Masa Lalu</span> &bull; 
+            <span class="label-item">Masa Kini</span> &bull; 
+            <span class="label-item">Masa Depan</span>
+        </p>
+        
+        <button id="drawCardsBtn">Ambil Kartu</button>
+        
+        <div class="tarot-spread" id="tarotSpread">
+            </div>
+
+        <div id="cardInterpretations" class="interpretations">
+            </div>
+    </div>
+
+    <script>
+        // Kode JavaScript langsung di sini
+
+        // --- DATA KARTU TAROT ---
+        // PENTING: Untuk penggunaan jangka panjang, unduh gambar dan arahkan 'image' ke folder lokal (misal: "images/the_fool.jpg")
+        const tarotCards = [
+            // Major Arcana (Contoh Beberapa - URL gambar dari Wikipedia untuk kemudahan)
+            { name: "The Fool", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/RWS_Tarot_00_Fool.jpg/200px-RWS_Tarot_00_Fool.jpg", 
+              meaning_past: "Awal yang baru, spontanitas, potensi belum terungkap, perjalanan tak terduga.", 
+              meaning_present: "Saatnya mengambil lompatan keyakinan, memulai petualangan baru, kebebasan, optimisme.", 
+              meaning_future: "Kejutan yang menyenangkan, peluang tak terduga, awal dari babak baru yang penuh kebebasan." },
+
+            { name: "The Magician", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/RWS_Tarot_01_Magician.jpg/200px-RWS_Tarot_01_Magician.jpg", 
+              meaning_past: "Kemampuan untuk mewujudkan ide, tekad, menguasai keterampilan.", 
+              meaning_present: "Kamu memiliki semua alat yang dibutuhkan untuk mencapai tujuanmu; gunakan kekuatan manifestasi.", 
+              meaning_future: "Akan ada peluang untuk menunjukkan keahlianmu, mewujudkan ambisi, dan mengambil inisiatif." },
+              
+            { name: "The High Priestess", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/RWS_Tarot_02_High_Priestess.jpg/200px-RWS_Tarot_02_High_Priestess.jpg", 
+              meaning_past: "Intuisi yang kuat, rahasia yang disimpan, kebijaksanaan batin.", 
+              meaning_present: "Dengarkan intuisi dan suara hati Anda, cari pengetahuan tersembunyi, waktu untuk refleksi.", 
+              meaning_future: "Wawasan yang dalam akan terungkap, atau kamu akan menemukan jawaban melalui bimbingan batin." },
+
+            { name: "The Empress", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/RWS_Tarot_03_Empress.jpg/200px-RWS_Tarot_03_Empress.jpg", 
+              meaning_past: "Masa kesuburan, kelimpahan, keindahan, atau koneksi dengan alam.", 
+              meaning_present: "Kreativitas berkembang, pertumbuhan, kenyamanan, atau hubungan yang harmonis.", 
+              meaning_future: "Kemakmuran, kemandirian, atau periode yang sangat produktif dan berlimpah." },
+
+            { name: "The Emperor", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/RWS_Tarot_04_Emperor.jpg/200px-RWS_Tarot_04_Emperor.jpg", 
+              meaning_past: "Struktur, otoritas, figur ayah atau figur berkuasa.", 
+              meaning_present: "Kepemimpinan, kendali, stabilitas, penetapan aturan, atau fondasi yang kuat.", 
+              meaning_future: "Disiplin akan membawa kesuksesan, membangun struktur yang kuat, atau mengambil peran otoritas." },
+
+            { name: "The Hierophant", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/RWS_Tarot_05_Hierophant.jpg/200px-RWS_Tarot_05_Hierophant.jpg", 
+              meaning_past: "Mengikuti tradisi, bimbingan spiritual, pendidikan formal.", 
+              meaning_present: "Konformitas, nilai-nilai tradisional, bimbingan dari guru atau institusi, spiritualitas terstruktur.", 
+              meaning_future: "Pentingnya mengikuti sistem atau tradisi, atau mencari bimbingan dari sumber yang berwenang." },
+
+            { name: "The Lovers", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/RWS_Tarot_06_Lovers.jpg/200px-RWS_Tarot_06_Lovers.jpg", 
+              meaning_past: "Keputusan penting tentang hubungan atau pilihan moral.", 
+              meaning_present: "Harmoni dalam hubungan, pilihan hati, persatuan, nilai-nilai pribadi.", 
+              meaning_future: "Pentingnya membuat pilihan yang selaras dengan nilai-nilai Anda, atau hubungan yang mendalam." },
+
+            { name: "The Chariot", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/RWS_Tarot_07_Chariot.jpg/200px-RWS_Tarot_07_Chariot.jpg", 
+              meaning_past: "Kemenangan, kontrol diri, mengatasi rintangan.", 
+              meaning_present: "Dorongan, tekad, kontrol, kesuksesan yang diraih melalui kemauan keras.", 
+              meaning_future: "Keberhasilan akan datang melalui fokus dan tekad yang kuat, perjalanan yang sukses." },
+            
+            { name: "Strength", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/RWS_Tarot_08_Strength.jpg/200px-RWS_Tarot_08_Strength.jpg", 
+              meaning_past: "Mengatasi kesulitan dengan keberanian dan kesabaran.", 
+              meaning_present: "Kekuatan batin, keberanian, kendali diri, empati, kelembutan dalam kekuatan.", 
+              meaning_future: "Kamu akan menemukan kekuatan untuk mengatasi tantangan melalui kesabaran dan kasih sayang." },
+
+            { name: "The Hermit", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/RWS_Tarot_09_Hermit.jpg/200px-RWS_Tarot_09_Hermit.jpg", 
+              meaning_past: "Masa isolasi untuk refleksi diri, pencarian jiwa.", 
+              meaning_present: "Introspeksi, pencarian kebenaran batin, bimbingan, kebijaksanaan, kesendirian.", 
+              meaning_future: "Waktu untuk mundur dan mencari jawaban di dalam diri sendiri, kebijaksanaan yang ditemukan." },
+            // Tambahkan semua 78 kartu lainnya di sini dengan properti yang sama!
+            // Contoh untuk Minor Arcana:
+            { name: "Ace of Wands", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/RWS_Tarot_Wands_01.jpg/200px-RWS_Tarot_Wands_01.jpg", 
+              meaning_past: "Percikan ide, inspirasi awal.", 
+              meaning_present: "Awal yang bersemangat, peluang baru, pertumbuhan.", 
+              meaning_future: "Munculnya ide atau proyek baru yang penuh potensi." },
+            { name: "Two of Wands", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/RWS_Tarot_Wands_02.jpg/200px-RWS_Tarot_Wands_02.jpg", 
+              meaning_past: "Rencana yang sedang dibuat, melihat ke masa depan.", 
+              meaning_present: "Perencanaan, penjelajahan opsi, keberanian untuk melangkah.", 
+              meaning_future: "Waktu untuk membuat keputusan besar dan menjelajahi cakrawala baru." },
+            // ... dan seterusnya untuk semua kartu dari Wand, Cups, Swords, Pentacles
+        ];
+
+        // --- FUNGSI UTAMA ---
+        const drawCardsBtn = document.getElementById('drawCardsBtn');
+        const tarotSpreadDiv = document.getElementById('tarotSpread');
+        const cardInterpretationsDiv = document.getElementById('cardInterpretations');
+
+        drawCardsBtn.addEventListener('click', drawThreeCards);
+
+        function drawThreeCards() {
+            // Nonaktifkan tombol untuk mencegah penarikan ganda
+            drawCardsBtn.disabled = true;
+            drawCardsBtn.textContent = 'Mengambil Kartu...';
+
+            // Kosongkan tampilan sebelumnya
+            tarotSpreadDiv.innerHTML = '';
+            cardInterpretationsDiv.innerHTML = '';
+
+            // Ambil 3 kartu unik secara acak
+            const shuffledCards = shuffleArray(tarotCards);
+            const selectedCards = shuffledCards.slice(0, 3); // Ambil 3 kartu pertama setelah diacak
+
+            const positions = ["Masa Lalu", "Masa Kini", "Masa Depan"];
+
+            // Fungsi untuk menampilkan kartu satu per satu dengan delay
+            let delay = 0;
+            selectedCards.forEach((card, index) => {
+                setTimeout(() => {
+                    // Tampilkan slot kartu
+                    const cardSlot = document.createElement('div');
+                    cardSlot.classList.add('card-slot');
+                    
+                    const positionSpan = document.createElement('span');
+                    positionSpan.textContent = positions[index];
+                    cardSlot.appendChild(positionSpan);
+
+                    const cardImg = document.createElement('img');
+                    cardImg.src = card.image;
+                    cardImg.alt = card.name;
+                    
+                    cardImg.onload = () => {
+                        // Setelah gambar dimuat, tampilkan dengan animasi
+                        cardSlot.classList.add('revealed');
+                    };
+                    cardImg.onerror = () => {
+                        // Jika gambar gagal dimuat (misal: URL salah, offline), tampilkan placeholder atau pesan error
+                        cardImg.alt = "Gambar kartu tidak tersedia";
+                        cardImg.style.display = 'block'; // Pastikan terlihat
+                        cardImg.style.backgroundColor = '#555';
+                        cardImg.style.textAlign = 'center';
+                        cardImg.style.lineHeight = '300px';
+                        cardImg.style.color = '#fff';
+                        cardImg.src = ''; // Hapus src agar tidak terus mencoba
+                        cardSlot.classList.add('revealed'); // Tetap tampilkan slot
+                    };
+                    cardSlot.appendChild(cardImg);
+                    
+                    tarotSpreadDiv.appendChild(cardSlot);
+
+                    // Tampilkan interpretasi setelah semua kartu muncul
+                    if (index === selectedCards.length - 1) {
+                        setTimeout(() => {
+                            displayInterpretations(selectedCards, positions);
+                            drawCardsBtn.disabled = false; // Aktifkan kembali tombol
+                            drawCardsBtn.textContent = 'Ambil Kartu Lagi';
+                        }, 1000); // Penundaan tambahan setelah kartu terakhir muncul
+                    }
+                }, delay);
+                delay += 700; // Penundaan untuk setiap kartu (0.7 detik)
+            });
+        }
+
+        function displayInterpretations(cards, positions) {
+            cards.forEach((card, index) => {
+                const interpretationItem = document.createElement('div');
+                interpretationItem.classList.add('interpretation-item');
+                
+                const heading = document.createElement('h3');
+                heading.textContent = `${card.name} (${positions[index]})`;
+                interpretationItem.appendChild(heading);
+                
+                const meaningParagraph = document.createElement('p');
+                let meaningText = "";
+                if (positions[index] === "Masa Lalu") {
+                    meaningText = card.meaning_past;
+                } else if (positions[index] === "Masa Kini") {
+                    meaningText = card.meaning_present;
+                } else if (positions[index] === "Masa Depan") {
+                    meaningText = card.meaning_future;
+                }
+                meaningParagraph.textContent = meaningText;
+                interpretationItem.appendChild(meaningParagraph);
+                
+                cardInterpretationsDiv.appendChild(interpretationItem);
+            });
+        }
+
+        // Fungsi untuk mengocok array (Fisher-Yates shuffle)
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+
+            // While there remain elements to shuffle.
+            while (currentIndex !== 0) {
+
+                // Pick a remaining element.
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]];
+            }
+
+            return array;
+        }
+    </script>
+</body>
+</html>
