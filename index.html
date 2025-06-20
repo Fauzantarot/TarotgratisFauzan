@@ -81,7 +81,7 @@
 
         .tarot-spread {
             display: flex;
-            justify-content: center; /* Posisikan di tengah */
+            justify-content: center;
             flex-wrap: wrap;
             gap: 30px; /* Jarak antar kartu */
             margin-bottom: 50px;
@@ -91,8 +91,8 @@
             background-color: rgba(255, 255, 255, 0.08); /* Sedikit transparan untuk latar belakang slot */
             border: 2px dashed rgba(255, 255, 255, 0.4);
             border-radius: 15px;
-            width: 200px; /* Lebar slot kartu */
-            height: 330px; /* Tinggi slot kartu */
+            width: 200px; 
+            height: 330px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -244,69 +244,349 @@
         // Kode JavaScript langsung di sini
 
         // --- DATA KARTU TAROT ---
-        // PENTING: Untuk penggunaan jangka panjang, unduh gambar dan arahkan 'image' ke folder lokal (misal: "images/the_fool.jpg")
         const tarotCards = [
-            // Major Arcana (Contoh Beberapa - URL gambar dari Wikipedia untuk kemudahan)
-            { name: "The Fool", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/RWS_Tarot_00_Fool.jpg/200px-RWS_Tarot_00_Fool.jpg", 
+            // --- MAJOR ARCANA ---
+            { name: "The Fool", image: "",
               meaning_past: "Awal yang baru, spontanitas, potensi belum terungkap, perjalanan tak terduga.", 
               meaning_present: "Saatnya mengambil lompatan keyakinan, memulai petualangan baru, kebebasan, optimisme.", 
               meaning_future: "Kejutan yang menyenangkan, peluang tak terduga, awal dari babak baru yang penuh kebebasan." },
 
-            { name: "The Magician", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/RWS_Tarot_01_Magician.jpg/200px-RWS_Tarot_01_Magician.jpg", 
+            { name: "The Magician", image: "",
               meaning_past: "Kemampuan untuk mewujudkan ide, tekad, menguasai keterampilan.", 
               meaning_present: "Kamu memiliki semua alat yang dibutuhkan untuk mencapai tujuanmu; gunakan kekuatan manifestasi.", 
               meaning_future: "Akan ada peluang untuk menunjukkan keahlianmu, mewujudkan ambisi, dan mengambil inisiatif." },
               
-            { name: "The High Priestess", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/RWS_Tarot_02_High_Priestess.jpg/200px-RWS_Tarot_02_High_Priestess.jpg", 
+            { name: "The High Priestess", image: "",
               meaning_past: "Intuisi yang kuat, rahasia yang disimpan, kebijaksanaan batin.", 
               meaning_present: "Dengarkan intuisi dan suara hati Anda, cari pengetahuan tersembunyi, waktu untuk refleksi.", 
               meaning_future: "Wawasan yang dalam akan terungkap, atau kamu akan menemukan jawaban melalui bimbingan batin." },
 
-            { name: "The Empress", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/RWS_Tarot_03_Empress.jpg/200px-RWS_Tarot_03_Empress.jpg", 
+            { name: "The Empress", image: "",
               meaning_past: "Masa kesuburan, kelimpahan, keindahan, atau koneksi dengan alam.", 
               meaning_present: "Kreativitas berkembang, pertumbuhan, kenyamanan, atau hubungan yang harmonis.", 
               meaning_future: "Kemakmuran, kemandirian, atau periode yang sangat produktif dan berlimpah." },
 
-            { name: "The Emperor", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/RWS_Tarot_04_Emperor.jpg/200px-RWS_Tarot_04_Emperor.jpg", 
+            { name: "The Emperor", image: "",
               meaning_past: "Struktur, otoritas, figur ayah atau figur berkuasa.", 
               meaning_present: "Kepemimpinan, kendali, stabilitas, penetapan aturan, atau fondasi yang kuat.", 
-              meaning_future: "Disiplin akan membawa kesuksesan, membangun struktur yang kuat, atau mengambil peran otoritas." },
+              meaning_future: "Disiplin, membangun struktur yang kuat, mengambil peran, tindakan nyata namun agak sedikit keras kepala." },
 
-            { name: "The Hierophant", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/RWS_Tarot_05_Hierophant.jpg/200px-RWS_Tarot_05_Hierophant.jpg", 
+            { name: "The Hierophant", image: "",
               meaning_past: "Mengikuti tradisi, bimbingan spiritual, pendidikan formal.", 
               meaning_present: "Konformitas, nilai-nilai tradisional, bimbingan dari guru atau institusi, spiritualitas terstruktur.", 
               meaning_future: "Pentingnya mengikuti sistem atau tradisi, atau mencari bimbingan dari sumber yang berwenang." },
 
-            { name: "The Lovers", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/RWS_Tarot_06_Lovers.jpg/200px-RWS_Tarot_06_Lovers.jpg", 
+            { name: "The Lovers", image: "",
               meaning_past: "Keputusan penting tentang hubungan atau pilihan moral.", 
               meaning_present: "Harmoni dalam hubungan, pilihan hati, persatuan, nilai-nilai pribadi.", 
-              meaning_future: "Pentingnya membuat pilihan yang selaras dengan nilai-nilai Anda, atau hubungan yang mendalam." },
+              meaning_future: "Pentingnya membuat pilihan yang selaras dengan nilai-nilai kamu, atau hubungan yang mendalam." },
 
-            { name: "The Chariot", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/RWS_Tarot_07_Chariot.jpg/200px-RWS_Tarot_07_Chariot.jpg", 
+            { name: "The Chariot", image: "",
               meaning_past: "Kemenangan, kontrol diri, mengatasi rintangan.", 
               meaning_present: "Dorongan, tekad, kontrol, kesuksesan yang diraih melalui kemauan keras.", 
               meaning_future: "Keberhasilan akan datang melalui fokus dan tekad yang kuat, perjalanan yang sukses." },
             
-            { name: "Strength", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/RWS_Tarot_08_Strength.jpg/200px-RWS_Tarot_08_Strength.jpg", 
+            { name: "Strength", image: "",
               meaning_past: "Mengatasi kesulitan dengan keberanian dan kesabaran.", 
               meaning_present: "Kekuatan batin, keberanian, kendali diri, empati, kelembutan dalam kekuatan.", 
               meaning_future: "Kamu akan menemukan kekuatan untuk mengatasi tantangan melalui kesabaran dan kasih sayang." },
 
-            { name: "The Hermit", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/RWS_Tarot_09_Hermit.jpg/200px-RWS_Tarot_09_Hermit.jpg", 
+            { name: "The Hermit", image: "",
               meaning_past: "Masa isolasi untuk refleksi diri, pencarian jiwa.", 
               meaning_present: "Introspeksi, pencarian kebenaran batin, bimbingan, kebijaksanaan, kesendirian.", 
               meaning_future: "Waktu untuk mundur dan mencari jawaban di dalam diri sendiri, kebijaksanaan yang ditemukan." },
-            // Tambahkan semua 78 kartu lainnya di sini dengan properti yang sama!
-            // Contoh untuk Minor Arcana:
-            { name: "Ace of Wands", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/RWS_Tarot_Wands_01.jpg/200px-RWS_Tarot_Wands_01.jpg", 
+            
+            { name: "Wheel of Fortune", image: "",
+              meaning_past: "Perubahan tak terduga, keberuntungan atau nasib.",
+              meaning_present: "Titik balik, keberuntungan yang datang, siklus baru dimulai, kesempatan emas.",
+              meaning_future: "Peristiwa penting yang mengubah arah hidup, peluang besar, waktu yang tepat dari semesta." },
+
+            { name: "Justice", image: "",
+              meaning_past: "Keputusan yang adil, konsekuensi dari tindakan masa lalu.",
+              meaning_present: "Keseimbangan, keadilan, kebenaran terungkap, keputusan etis.",
+              meaning_future: "Hasil yang adil, resolusi masalah, keseimbangan dari situasi." },
+
+            { name: "The Hanged Man", image: "",
+              meaning_past: "Pengorbanan, penangguhan, atau perspektif baru yang didapat.",
+              meaning_present: "Waktu untuk melepaskan kendali, melihat dari sudut pandang berbeda, menunggu, pengorbanan.",
+              meaning_future: "Perlu melepaskan sesuatu untuk maju, perubahan perspektif fundamental." },
+
+            { name: "Death", image: "",
+              meaning_past: "Akhir dari sebuah siklus, transformasi yang menyakitkan namun perlu.",
+              meaning_present: "Transformasi besar, akhir dan awal, pelepasan yang lama, regenerasi.",
+              meaning_future: "Perubahan yang tak terhindarkan, akhir dari fase penting, awal yang baru setelah pelepasan." },
+
+            { name: "Temperance", image: "",
+              meaning_past: "Keseimbangan, harmoni, kesabaran dalam menghadapi perbedaan.",
+              meaning_present: "Moderasi, keseimbangan, harmoni, penyembuhan, integrasi.",
+              meaning_future: "Kebutuhan akan keseimbangan, kompromi, atau penyatuan elemen yang berbeda." },
+
+            { name: "The Devil", image: "",
+              meaning_past: "Keterikatan, kecanduan, bayangan atau sisi gelap yang dominan.",
+              meaning_present: "Keterikatan, kecanduan, ilusi, materialisme, kebebasan dari batasan.",
+              meaning_future: "Peringatan akan keterikatan, perlu menghadapi bayangan diri, atau kebebasan dari belenggu." },
+
+            { name: "The Tower", image: "",
+              meaning_past: "Kehancuran mendadak, krisis, kejatuhan struktur lama.",
+              meaning_present: "Perubahan mendadak, kehancuran ilusi, wahyu, krisis yang perlu.",
+              meaning_future: "Perubahan tak terduga, fondasi yang runtuh, kebangkitan spiritual." },
+
+            { name: "The Star", image: "",
+              meaning_past: "Harapan yang baru ditemukan, inspirasi, masa penyembuhan.",
+              meaning_present: "Harapan, inspirasi, penyembuhan, kedamaian batin, bimbingan ilahi.",
+              meaning_future: "Masa depan yang penuh harapan, inspirasi, pemulihan, dan ketenangan." },
+
+            { name: "The Moon", image: "",
+              meaning_past: "Kebingungan, ilusi, ketakutan yang tidak rasional.",
+              meaning_present: "Ketidakpastian, ilusi, intuisi yang kuat namun membingungkan, mimpi, misteri.",
+              meaning_future: "Periode ketidakpastian, kamu perlu mempercayai intuisi dan mengungkap kebenaran tersembunyi." },
+
+            { name: "The Sun", image: "",
+              meaning_past: "Sukses, kebahagiaan, kejelasan yang datang dari kegelapan.",
+              meaning_present: "Kebahagiaan, kesuksesan, vitalitas, kejelasan, optimisme, keberhasilan.",
+              meaning_future: "Masa depan yang cerah, kebahagiaan yang meluap, keberhasilan dalam segala aspek." },
+
+            { name: "Judgement", image: "",
+              meaning_past: "Evaluasi penting, panggilan untuk bangun, keputusan masa lalu yang memengaruhi.",
+              meaning_present: "Panggilan, kebangkitan, evaluasi diri, pengampunan, pembebasan.",
+              meaning_future: "Masa depan yang membawa penilaian, resolusi dari masalah lama, kebangkitan spiritual." },
+
+            { name: "The World", image: "",
+              meaning_past: "Pencapaian, penyelesaian siklus, kesuksesan global.",
+              meaning_present: "Penyelesaian, pemenuhan, integrasi, kesuksesan, pencapaian tujuan.",
+              meaning_future: "Kesuksesan global, pencapaian puncak, akhir dari sebuah perjalanan dan tanda siklus baru." },
+
+            // --- MINOR ARCANA: SUIT OF WANDS (Tongkat/Pikiran) ---
+            { name: "Ace of Wands", image: "", 
               meaning_past: "Percikan ide, inspirasi awal.", 
               meaning_present: "Awal yang bersemangat, peluang baru, pertumbuhan.", 
               meaning_future: "Munculnya ide atau proyek baru yang penuh potensi." },
-            { name: "Two of Wands", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/RWS_Tarot_Wands_02.jpg/200px-RWS_Tarot_Wands_02.jpg", 
+            { name: "Two of Wands", image: "", 
               meaning_past: "Rencana yang sedang dibuat, melihat ke masa depan.", 
               meaning_present: "Perencanaan, penjelajahan opsi, keberanian untuk melangkah.", 
               meaning_future: "Waktu untuk membuat keputusan besar dan menjelajahi cakrawala baru." },
-            // ... dan seterusnya untuk semua kartu dari Wand, Cups, Swords, Pentacles
+            { name: "Three of Wands", image: "", 
+              meaning_past: "Ekspansi awal, melihat hasil dari usaha.", 
+              meaning_present: "Perluasan, eksplorasi, menantikan hasil, kemitraan.", 
+              meaning_future: "Kemajuan dalam proyek, ekspansi usaha, atau perjalanan." },
+            { name: "Four of Wands", image: "", 
+              meaning_past: "Perayaan masa lalu, stabilitas yang dicapai.", 
+              meaning_present: "Perayaan, stabilitas, harmoni keluarga, keamanan rumah tangga.", 
+              meaning_future: "Masa bahagia dan stabil, perayaan penting, pondasi dan prinsip yang kuat." },
+            { name: "Five of Wands", image: "", 
+              meaning_past: "Konflik atau persaingan yang dihadapi.", 
+              meaning_present: "Konflik kecil, persaingan, perbedaan pendapat, tantangan.", 
+              meaning_future: "Perlu mengatasi perselisihan atau persaingan yang sehat." },
+            { name: "Six of Wands", image: "", 
+              meaning_past: "Kemenangan atau pengakuan yang diterima.", 
+              meaning_present: "Kemenangan, pengakuan publik, kepercayaan diri, kemajuan.", 
+              meaning_future: "Keberhasilan yang diakui, pujian, atau kemenangan dalam kompetisi." },
+            { name: "Seven of Wands", image: "", 
+              meaning_past: "Pertahanan diri atau perjuangan yang berhasil.", 
+              meaning_present: "Mempertahankan posisi, menghadapi tantangan, keberanian.", 
+              meaning_future: "Perlu berdiri teguh melawan rintangan atau kritik." },
+            { name: "Eight of Wands", image: "", 
+              meaning_past: "Peristiwa yang bergerak cepat, komunikasi tiba-tiba.", 
+              meaning_present: "Gerakan cepat, komunikasi, perjalanan, akhir penundaan.", 
+              meaning_future: "Berita cepat, peristiwa yang berkembang pesat, perjalanan yang tak terduga." },
+            { name: "Nine of Wands", image: "", 
+              meaning_past: "Ketahanan yang teruji, perjuangan yang hampir selesai.", 
+              meaning_present: "Ketahanan, keberanian, pertahanan terakhir, kekuatan untuk melanjutkan.", 
+              meaning_future: "Hampir mencapai tujuan, tetapi perlu tetap waspada dan kuat." },
+            { name: "Ten of Wands", image: "", 
+              meaning_past: "Beban berat yang dipikul, tanggung jawab yang berlebihan.", 
+              meaning_present: "Beban, tanggung jawab berlebihan, kerja keras, kelelahan.", 
+              meaning_future: "Perlu melepaskan beban, atau menghadapi tanggung jawab besar yang hampir selesai." },
+            { name: "Page of Wands", image: "", 
+              meaning_past: "Berita baru, awal yang penuh semangat.", 
+              meaning_present: "Berita, inspirasi, antusiasme baru, memulai sesuatu yang kreatif.", 
+              meaning_future: "Peluang baru yang menarik, pesan penting, atau awal yang segar." },
+            { name: "Knight of Wands", image: "", 
+              meaning_past: "Energi yang bergejolak, perjalanan atau petualangan.", 
+              meaning_present: "Petualangan, keberanian, energi yang impulsif, perjalanan.", 
+              meaning_future: "Perjalanan yang mendebarkan, atau dorongan untuk bertindak cepat bahkan impulsif." },
+            { name: "Queen of Wands", image: "", 
+              meaning_past: "Kreativitas yang berkembang, karisma yang menonjol.", 
+              meaning_present: "Karisma, kepercayaan diri, kemandirian, energi yang hangat dan bersemangat.", 
+              meaning_future: "Peran kepemimpinan yang bersemangat, atau periode kreativitas yang tinggi." },
+            { name: "King of Wands", image: "", 
+              meaning_past: "Kepemimpinan yang kuat, visi yang diwujudkan.", 
+              meaning_present: "Visi, kepemimpinan, inspirasi, otoritas yang karismatik.", 
+              meaning_future: "Menjadi pemimpin yang visioner, atau mewujudkan ambisi besar." },
+
+            // --- MINOR ARCANA: SUIT OF CUPS (Cangkir/Emosi) ---
+            { name: "Ace of Cups", image: "",
+              meaning_past: "Awal emosional, cinta yang baru, inspirasi dari hati.",
+              meaning_present: "Awal cinta, kebahagiaan emosional, inspirasi, spiritualitas baru.",
+              meaning_future: "Hubungan baru, kebahagiaan emosional yang melimpah, atau penemuan spiritual." },
+            { name: "Two of Cups", image: "",
+              meaning_past: "Koneksi yang kuat, kemitraan emosional.",
+              meaning_present: "Hubungan timbal balik, persatuan, kemitraan, cinta yang tulus.",
+              meaning_future: "Hubungan yang harmonis, kemitraan yang sukses, atau cinta sejati." },
+            { name: "Three of Cups", image: "",
+              meaning_past: "Perayaan, persahabatan, kebahagiaan komunitas.",
+              meaning_present: "Perayaan, persahabatan, komunitas, kebersamaan yang menyenangkan.",
+              meaning_future: "Acara sosial yang bahagia, perayaan bersama, atau lingkaran sosial yang mendukung." },
+            { name: "Four of Cups", image: "",
+              meaning_past: "Apatis, penolakan tawaran, merasa tidak puas.",
+              meaning_present: "Merasa bosan, apatis, menolak tawaran, refleksi diri.",
+              meaning_future: "Kebutuhan untuk mengevaluasi tawaran, atau mengatasi ketidakpuasan batin." },
+            { name: "Five of Cups", image: "",
+              meaning_past: "Kehilangan, penyesalan, fokus pada yang telah hilang.",
+              meaning_present: "Kesedihan, penyesalan, fokus pada kerugian, kekecewaan.",
+              meaning_future: "Perlu mengatasi kesedihan, atau menemukan hikmah di balik kerugian." },
+            { name: "Six of Cups", image: "",
+              meaning_past: "Nostalgia, kenangan masa kecil, masa lalu yang membahagiakan.",
+              meaning_present: "Nostalgia, kenangan, masa lalu yang berulang, kepolosan, kebaikan.",
+              meaning_future: "Seseorang dari masa lalu kembali, atau pengalaman yang membawa kebahagiaan seperti anak-anak." },
+            { name: "Seven of Cups", image: "",
+              meaning_past: "Pilihan yang membingungkan, ilusi, terlalu banyak opsi.",
+              meaning_present: "Pilihan yang membingungkan, ilusi, lamunan, terlalu banyak fantasi.",
+              meaning_future: "Perlu fokus pada satu pilihan di antara banyak, atau mengatasi delusi." },
+            { name: "Eight of Cups", image: "",
+              meaning_past: "Berjalan pergi dari sesuatu yang tidak memuaskan.",
+              meaning_present: "Perpisahan, mencari tujuan yang lebih tinggi, meninggalkan yang lama.",
+              meaning_future: "Kebutuhan untuk pergi dari situasi yang tidak memuaskan untuk mencari yang lebih baik." },
+            { name: "Nine of Cups", image: "",
+              meaning_past: "Keinginan yang terpenuhi, kepuasan pribadi.",
+              meaning_present: "Keinginan terpenuhi, kepuasan, kebahagiaan, pencapaian emosional.",
+              meaning_future: "Keinginan Anda akan terwujud, kepuasan mendalam." },
+            { name: "Ten of Cups", image: "",
+              meaning_past: "Kebahagiaan keluarga, pemenuhan emosional.",
+              meaning_present: "Kebahagiaan keluarga, kepuasan emosional, harmoni, rumah tangga ideal.",
+              meaning_future: "Kebahagiaan dan pemenuhan dalam kehidupan keluarga dan emosional." },
+            { name: "Page of Cups", image: "",
+              meaning_past: "Pesan emosional, intuisi yang baru terbangun.",
+              meaning_present: "Pesan emosional, undangan, intuisi baru, kreativitas.",
+              meaning_future: "Berita yang berhubungan dengan perasaan, atau undangan yang menyenangkan." },
+            { name: "Knight of Cups", image: "",
+              meaning_past: "Lamaran, tawaran romantis, gerakan emosional.",
+              meaning_present: "Lamaran, tawaran romantis, pencarian ideal, imajinasi.",
+              meaning_future: "Tawaran yang tulus, kesempatan romantis, atau perjalanan emosional." },
+            { name: "Queen of Cups", image: "",
+              meaning_past: "Kecerdasan emosional, belas kasih, intuisi yang mendalam.",
+              meaning_present: "Empati, intuisi, belas kasih, dukungan emosional, kedewasaan.",
+              meaning_future: "Seseorang yang bijaksana secara emosional akan membimbing Anda, atau Anda akan menjadi sumber dukungan." },
+            { name: "King of Cups", image: "",
+              meaning_past: "Kendali emosi, kebijaksanaan dalam hubungan.",
+              meaning_present: "Keseimbangan emosional, kebijaksanaan, belas kasih, diplomasi.",
+              meaning_future: "Mengembangkan kendali emosional yang kuat, atau bimbingan dari figur yang stabil dan empatik." },
+
+            // --- MINOR ARCANA: SUIT OF SWORDS (Pedang/Intelektual & Konflik) ---
+            { name: "Ace of Swords", image: "",
+              meaning_past: "Ide terobosan, kejernihan mental yang tiba-tiba.",
+              meaning_present: "Ide baru, kejelasan, kebenaran, terobosan mental, kemenangan.",
+              meaning_future: "Penemuan kebenaran, ide yang kuat, atau keputusan penting yang perlu dibuat." },
+            { name: "Two of Swords", image: "",
+              meaning_past: "Buntu, menolak melihat kebenaran, keputusan yang tertunda.",
+              meaning_present: "Buntu, menolak pilihan, keputusan yang sulit, keseimbangan internal.",
+              meaning_future: "Perlu membuat keputusan yang sulit, atau menghadapi kebenaran yang tidak menyenangkan." },
+            { name: "Three of Swords", image: "",
+              meaning_past: "Patah hati, kesedihan, konflik yang menyakitkan.",
+              meaning_present: "Patah hati, kesedihan, konflik, pengkhianatan, pembebasan dari rasa sakit.",
+              meaning_future: "Pengalaman menyakitkan, konflik, atau kebenaran pahit yang perlu diterima." },
+            { name: "Four of Swords", image: "",
+              meaning_past: "Istirahat yang diperlukan, pemulihan dari konflik.",
+              meaning_present: "Istirahat, pemulihan, meditasi, waktu untuk merencanakan.",
+              meaning_future: "Kebutuhan untuk mundur dan istirahat, atau periode pemulihan." },
+            { name: "Five of Swords", image: "",
+              meaning_past: "Kemenangan yang pahit, konflik yang merugikan.",
+              meaning_present: "Kemenangan yang pahit, konflik, pengkhianatan, merasa malu atau kalah.",
+              meaning_future: "Konflik yang perlu dihindari, atau konsekuensi dari tindakan yang egois." },
+            { name: "Six of Swords", image: "",
+              meaning_past: "Melewati kesulitan, transisi menuju ketenangan.",
+              meaning_present: "Transisi, bergerak maju, meninggalkan masalah di belakang, perjalanan.",
+              meaning_future: "Perpindahan dari situasi sulit menuju ketenangan, perjalanan." },
+            { name: "Seven of Swords", image: "",
+              meaning_past: "Penipuan, menghindari tanggung jawab, strategi licik.",
+              meaning_present: "Penipuan, taktik licik, rahasia, melarikan diri dari tanggung jawab.",
+              meaning_future: "Peringatan akan penipuan, atau kebutuhan untuk bertindak cerdik namun etis." },
+            { name: "Eight of Swords", image: "",
+              meaning_past: "Merasa terjebak, batasan yang dibuat sendiri.",
+              meaning_present: "Merasa terjebak, batasan mental, ketidakberdayaan, kurangnya perspektif.",
+              meaning_future: "Perlu menyadari bahwa batasan adalah buatan sendiri, atau mencari jalan keluar dari situasi yang membatasi." },
+            { name: "Nine of Swords", image: "",
+              meaning_past: "Kecemasan yang mendalam, mimpi buruk, penyesalan.",
+              meaning_present: "Kecemasan, ketakutan, mimpi buruk, rasa bersalah, tekanan mental.",
+              meaning_future: "Periode kecemasan yang akan datang, atau perlu menghadapi ketakutan yang mengganggu." },
+            { name: "Ten of Swords", image: "",
+              meaning_past: "Akhir yang menyakitkan, titik terendah, kehancuran.",
+              meaning_present: "Akhir yang menyakitkan, titik terendah, kehancuran, pembebasan dari penderitaan.",
+              meaning_future: "Akhir dari sebuah siklus yang sulit, pembebasan, atau perlu menerima kekalahan untuk maju." },
+            { name: "Page of Swords", image: "",
+              meaning_past: "Berita, ide baru yang menantang.",
+              meaning_present: "Kecerdasan, rasa ingin tahu, berita, komunikasi yang jujur, belajar.",
+              meaning_future: "Pesan penting, peluang belajar, atau awal dari konflik kecil." },
+            { name: "Knight of Swords", image: "",
+              meaning_past: "Konfrontasi, tindakan cepat yang agresif.",
+              meaning_present: "Tindakan cepat, ambisi, konfrontasi, energi yang tidak sabar.",
+              meaning_future: "Perlu bertindak cepat, namun waspada terhadap impulsivitas dan konflik." },
+            { name: "Queen of Swords", image: "",
+              meaning_past: "Kebenaran yang sulit, kemandirian intelektual.",
+              meaning_present: "Kemandirian, kejujuran brutal, kecerdasan, objektivitas, kebijaksanaan.",
+              meaning_future: "Perlu bersikap jujur dan objektif, atau menghadapi seseorang yang jujur dan tajam." },
+            { name: "King of Swords", image: "",
+              meaning_past: "Otoritas intelektual, pengambilan keputusan yang logis.",
+              meaning_present: "Otoritas, analisis, pemikiran logis, keadilan, kebijaksanaan.",
+              meaning_future: "Mengambil keputusan penting dengan kepala dingin, atau bimbingan dari figur yang rasional." },
+
+            // --- MINOR ARCANA: SUIT OF PENTACLES (Koin/Materi & Keamanan) ---
+            { name: "Ace of Pentacles", image: "",
+              meaning_past: "Peluang materi, awal keuangan yang baru.",
+              meaning_present: "Peluang baru, stabilitas finansial, awal proyek materi, pertumbuhan.",
+              meaning_future: "Kesempatan finansial baru, investasi yang menguntungkan, atau dasar yang kuat." },
+            { name: "Two of Pentacles", image: "",
+              meaning_past: "Menyeimbangkan sumber daya, adaptasi terhadap perubahan.",
+              meaning_present: "Keseimbangan, juggling tanggung jawab, adaptasi, fleksibilitas.",
+              meaning_future: "Perlu menyeimbangkan berbagai aspek kehidupan, atau menghadapi perubahan finansial kecil." },
+            { name: "Three of Pentacles", image: "",
+              meaning_past: "Kolaborasi yang sukses, keterampilan yang diaplikasikan.",
+              meaning_present: "Kerja tim, kolaborasi, pembelajaran, pengakuan keterampilan.",
+              meaning_future: "Kesuksesan melalui kerja tim, atau pengembangan keterampilan baru." },
+            { name: "Four of Pentacles", image: "",
+              meaning_past: "Penguasaan, keamanan yang dipegang erat, materialisme.",
+              meaning_present: "Keamanan, kontrol, posesif, materialisme, konservasi.",
+              meaning_future: "Kebutuhan akan keamanan finansial, atau bahaya menjadi terlalu kikir/posesif." },
+            { name: "Five of Pentacles", image: "",
+              meaning_past: "Kesulitan finansial, merasa terpinggirkan.",
+              meaning_present: "Kekurangan, kesulitan finansial, merasa ditinggalkan, krisis.",
+              meaning_future: "Periode sulit, atau peringatan untuk mencari bantuan." },
+            { name: "Six of Pentacles", image: "",
+              meaning_past: "Kedermawanan, menerima atau memberi bantuan.",
+              meaning_present: "Kedermawanan, amal, memberi dan menerima, keadilan, berbagi.",
+              meaning_future: "Kesempatan untuk memberi atau menerima bantuan finansial/materi." },
+            { name: "Seven of Pentacles", image: "",
+              meaning_past: "Evaluasi investasi, kerja keras yang menghasilkan.",
+              meaning_present: "Penantian, evaluasi, kesabaran, kerja keras yang akan membuahkan hasil.",
+              meaning_future: "Hasil dari kerja keras akan terlihat, atau perlu mengevaluasi kemajuan." },
+            { name: "Eight of Pentacles", image: "",
+              meaning_past: "Penguasaan keterampilan, dedikasi pada pekerjaan.",
+              meaning_present: "Kerja keras, dedikasi, keahlian, fokus pada detail, belajar.",
+              meaning_future: "Mengembangkan keterampilan baru, atau pengakuan atas dedikasi dalam pekerjaan." },
+            { name: "Nine of Pentacles", image: "",
+              meaning_past: "Kemandirian finansial, kenikmatan dari hasil kerja keras.",
+              meaning_present: "Kemandirian, kemewahan, kepuasan diri, hasil kerja keras, penghargaan diri.",
+              meaning_future: "Kemandirian finansial, atau menikmati buah dari kerja keras Anda." },
+            { name: "Ten of Pentacles", image: "",
+              meaning_past: "Warisan, keamanan keluarga, kemapanan.",
+              meaning_present: "Keluarga, warisan, kekayaan, keamanan jangka panjang, tradisi.",
+              meaning_future: "Keamanan finansial jangka panjang, kebahagiaan keluarga, atau warisan." },
+            { name: "Page of Pentacles", image: "",
+              meaning_past: "Berita finansial, peluang belajar praktis.",
+              meaning_present: "Peluang baru, berita terkait uang atau karir, memulai belajar sesuatu yang praktis.",
+              meaning_future: "Kesempatan praktis, tawaran kerja, atau permulaan proyek yang solid." },
+            { name: "Knight of Pentacles", image: "",
+              meaning_past: "Dedikasi yang stabil, kemajuan yang lambat tapi pasti.",
+              meaning_present: "Kerja keras, keandalan, kesabaran, kemajuan yang lambat tapi mantap.",
+              meaning_future: "Kemajuan yang stabil dan terjamin, atau seseorang yang dapat diandalkan akan datang." },
+            { name: "Queen of Pentacles", image: "",
+              meaning_past: "Keibuan, kemakmuran yang stabil, membumi.",
+              meaning_present: "Kepedulian, praktis, membumi, kemakmuran, mendukung keluarga.",
+              meaning_future: "Lingkungan yang stabil dan mendukung, atau figur keibuan yang memberikan kenyamanan." },
+            { name: "King of Pentacles", image: "",
+              meaning_past: "Keamanan finansial, kesuksesan material yang kokoh.",
+              meaning_present: "Kemakmuran, keamanan, kepemimpinan finansial, praktis, bertanggung jawab.",
+              meaning_future: "Kesuksesan finansial yang besar, atau menjadi pemimpin yang bijaksana dalam urusan materi." }
         ];
 
         // --- FUNGSI UTAMA ---
@@ -344,26 +624,27 @@
                     cardSlot.appendChild(positionSpan);
 
                     const cardImg = document.createElement('img');
-                    cardImg.src = card.image;
+                    cardImg.src = card.image; // Ini akan menjadi string kosong sekarang
                     cardImg.alt = card.name;
                     
-                    cardImg.onload = () => {
-                        // Setelah gambar dimuat, tampilkan dengan animasi
-                        cardSlot.classList.add('revealed');
-                    };
-                    cardImg.onerror = () => {
-                        // Jika gambar gagal dimuat (misal: URL salah, offline), tampilkan placeholder atau pesan error
-                        cardImg.alt = "Gambar kartu tidak tersedia";
-                        cardImg.style.display = 'block'; // Pastikan terlihat
-                        cardImg.style.backgroundColor = '#555';
-                        cardImg.style.textAlign = 'center';
-                        cardImg.style.lineHeight = '300px';
-                        cardImg.style.color = '#fff';
-                        cardImg.src = ''; // Hapus src agar tidak terus mencoba
-                        cardSlot.classList.add('revealed'); // Tetap tampilkan slot
-                    };
-                    cardSlot.appendChild(cardImg);
-                    
+                    // Pastikan slot tetap ditampilkan meski tanpa gambar
+                    cardImg.style.display = 'block';
+                    cardImg.style.backgroundColor = 'transparent'; // Biarkan latar belakang slot yang terlihat
+                    cardImg.style.textAlign = 'center';
+                    cardImg.style.lineHeight = '300px'; // Ini mungkin tidak relevan tanpa teks di img
+                    cardImg.style.color = '#fff';
+                    cardImg.src = ''; // Hapus src agar tidak ada permintaan ke URL kosong
+
+                    // Tambahkan teks nama kartu di dalam slot jika gambar kosong
+                    const cardNameText = document.createElement('div');
+                    cardNameText.textContent = card.name;
+                    cardNameText.style.color = '#ffcc66';
+                    cardNameText.style.fontSize = '1.2em';
+                    cardNameText.style.fontWeight = 'bold';
+                    cardNameText.style.marginTop = '20px';
+                    cardSlot.appendChild(cardNameText);
+
+                    cardSlot.classList.add('revealed'); // Tetap tampilkan slot dengan animasi
                     tarotSpreadDiv.appendChild(cardSlot);
 
                     // Tampilkan interpretasi setelah semua kartu muncul
