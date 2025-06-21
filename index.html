@@ -51,12 +51,17 @@
             font-weight: bold;
             color: #ffcc66;
             margin-bottom: 30px;
+            display: flex; /* Untuk menata label secara horizontal */
+            justify-content: center;
+            gap: 15px; /* Jarak antar label */
+            flex-wrap: wrap; /* Agar responsif di layar kecil */
         }
 
         .label-item {
             padding: 5px 10px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
+            white-space: nowrap; /* Mencegah teks terpotong */
         }
 
         #drawCardsBtn {
@@ -94,13 +99,15 @@
             width: 200px; 
             height: 330px; 
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: column; /* Mengatur item secara vertikal */
+            justify-content: flex-start; /* Memulai dari atas */
             align-items: center;
             overflow: hidden;
             position: relative;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding-top: 50px; /* Ruang untuk label posisi */
+            box-sizing: border-box; /* Pastikan padding tidak menambah ukuran total */
         }
 
         .card-slot:hover {
@@ -109,19 +116,43 @@
         }
 
         .card-slot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Pastikan gambar mengisi slot tanpa distorsi */
+            width: calc(100% - 20px); /* Kurangi sedikit untuk padding visual */
+            height: auto; /* Jaga rasio aspek */
+            max-height: 70%; /* Batasi tinggi gambar agar ada ruang untuk nama kartu */
+            object-fit: contain; /* Pastikan gambar terlihat penuh */
             border-radius: 12px;
             display: none; /* Sembunyikan gambar kartu sampai ditarik */
             animation: fadeIn 1s ease-out forwards; /* Animasi muncul */
+            margin-bottom: 10px; /* Jarak antara gambar dan nama kartu */
+        }
+        
+        /* Modifikasi CSS untuk slot kartu tanpa gambar */
+        .card-slot.revealed:not(:has(img[src=""])) img { /* Tampilkan gambar hanya jika src tidak kosong */
+            display: block; 
         }
 
-        .card-slot.revealed img {
-            display: block; /* Tampilkan gambar kartu saat diungkapkan */
+        /* Styling tambahan jika tidak ada gambar */
+        .card-slot.revealed:has(img[src=""]) {
+            justify-content: center; /* Pusatkan teks jika tidak ada gambar */
+            align-items: center;
+            padding-top: 0; /* Hapus padding jika tidak ada gambar di atas */
         }
 
-        .card-slot span {
+        .card-slot.revealed:has(img[src=""]) .card-name-text {
+            font-size: 1.5em; /* Perbesar nama kartu jika tanpa gambar */
+            margin-top: 0;
+        }
+
+        .card-slot .card-name-text { /* Menambahkan kelas untuk nama kartu */
+            font-size: 1.2em;
+            color: #ffcc66;
+            font-weight: bold;
+            text-align: center;
+            padding: 0 10px; /* Agar teks tidak terlalu mepet tepi */
+            box-sizing: border-box;
+        }
+
+        .card-slot span { /* Untuk label posisi (Masa Lalu, Sekarang, Depan) */
             font-size: 1.2em;
             color: #ffcc66;
             font-weight: bold;
@@ -184,9 +215,21 @@
             .card-slot {
                 width: 150px;
                 height: 250px;
+                padding-top: 40px; /* Sesuaikan padding untuk label */
+            }
+            .card-slot img {
+                max-height: 65%; /* Sesuaikan max-height untuk gambar */
+            }
+            .card-slot .card-name-text {
+                font-size: 1em;
             }
             .spread-labels {
                 font-size: 1em;
+            }
+            .card-slot.revealed:has(img[src=""]) { /* Untuk mobile juga */
+                justify-content: center;
+                align-items: center;
+                padding-top: 0;
             }
         }
 
@@ -207,10 +250,18 @@
             .tarot-spread {
                 flex-direction: column;
                 align-items: center;
+                gap: 20px; /* Kurangi gap untuk mobile */
             }
             .card-slot {
                 width: 180px;
                 height: 280px;
+                padding-top: 45px;
+            }
+            .card-slot img {
+                max-height: 68%;
+            }
+            .card-slot .card-name-text {
+                font-size: 1.1em;
             }
             .interpretation-item h3 {
                 font-size: 1.4em;
@@ -245,7 +296,7 @@
 
         // --- DATA KARTU TAROT ---
         const tarotCards = [
-            // --- MAJOR ARCANA ---
+            // --- MAJOR ARCANA (URL gambar dikosongkan) ---
             { name: "The Fool", image: "",
               meaning_past: "Awal yang baru, spontanitas, potensi belum terungkap, perjalanan tak terduga.", 
               meaning_present: "Saatnya mengambil lompatan keyakinan, memulai petualangan baru, kebebasan, optimisme.", 
@@ -459,7 +510,7 @@
               meaning_past: "Pesan emosional, intuisi yang baru terbangun.",
               meaning_present: "Pesan emosional, undangan, intuisi baru, kreativitas.",
               meaning_future: "Berita yang berhubungan dengan perasaan, atau undangan yang menyenangkan." },
-            { name: "Knight of Cups", image: "https://i.imgur.com/HATtdz8.png",
+            { name: "Knight of Cups", image: "https://i.imgur.com/HATtdzX.png",
               meaning_past: "Lamaran, tawaran romantis, gerakan emosional.",
               meaning_present: "Lamaran, tawaran romantis, pencarian ideal, imajinasi.",
               meaning_future: "Tawaran yang tulus, kesempatan romantis, atau perjalanan emosional." },
@@ -497,7 +548,7 @@
               meaning_past: "Melewati kesulitan, transisi menuju ketenangan.",
               meaning_present: "Transisi, bergerak maju, meninggalkan masalah di belakang, perjalanan.",
               meaning_future: "Perpindahan dari situasi sulit menuju ketenangan, perjalanan." },
-            { name: "Seven of Swords", image: "https://i.imgur.com/yLC0Y0Z.png",
+            { name: "Seven of Swords", image: "https://i.imgur.com/yLC0Y0L.png",
               meaning_past: "Penipuan, menghindari tanggung jawab, strategi licik.",
               meaning_present: "Penipuan, taktik licik, rahasia, melarikan diri dari tanggung jawab.",
               meaning_future: "Peringatan akan penipuan, atau kebutuhan untuk bertindak cerdik namun etis." },
@@ -517,7 +568,7 @@
               meaning_past: "Berita, ide baru yang menantang.",
               meaning_present: "Kecerdasan, rasa ingin tahu, berita, komunikasi yang jujur, belajar.",
               meaning_future: "Pesan penting, peluang belajar, atau awal dari konflik kecil." },
-            { name: "Knight of Swords", image: "https://i.imgur.com/adlR0lY.png",
+            { name: "Knight of Swords", image: "https://i.imgur.com/adlR0lM.png",
               meaning_past: "Konfrontasi, tindakan cepat yang agresif.",
               meaning_present: "Tindakan cepat, ambisi, konfrontasi, energi yang tidak sabar.",
               meaning_future: "Perlu bertindak cepat, namun waspada terhadap impulsivitas dan konflik." },
@@ -535,7 +586,7 @@
               meaning_past: "Peluang materi, awal keuangan yang baru.",
               meaning_present: "Peluang baru, stabilitas finansial, awal proyek materi, pertumbuhan.",
               meaning_future: "Kesempatan finansial baru, investasi yang menguntungkan, atau dasar yang kuat." },
-            { name: "Two of Pentacles", image: "https://i.imgur.com/5FaBHgJ.png",
+            { name: "Two of Pentacles", image: "https://i.imgur.com/5FaBHgN.png",
               meaning_past: "Menyeimbangkan sumber daya, adaptasi terhadap perubahan.",
               meaning_present: "Keseimbangan, juggling tanggung jawab, adaptasi, fleksibilitas.",
               meaning_future: "Perlu menyeimbangkan berbagai aspek kehidupan, atau menghadapi perubahan finansial kecil." },
@@ -559,7 +610,7 @@
               meaning_past: "Evaluasi investasi, kerja keras yang menghasilkan.",
               meaning_present: "Penantian, evaluasi, kesabaran, kerja keras yang akan membuahkan hasil.",
               meaning_future: "Hasil dari kerja keras akan terlihat, atau perlu mengevaluasi kemajuan." },
-            { name: "Eight of Pentacles", image: "https://i.imgur.com/mrlMFOA.png",
+            { name: "Eight of Pentacles", image: "https://i.imgur.com/mrlMFOg.png",
               meaning_past: "Penguasaan keterampilan, dedikasi pada pekerjaan.",
               meaning_present: "Kerja keras, dedikasi, keahlian, fokus pada detail, belajar.",
               meaning_future: "Mengembangkan keterampilan baru, atau pengakuan atas dedikasi dalam pekerjaan." },
@@ -597,65 +648,57 @@
         drawCardsBtn.addEventListener('click', drawThreeCards);
 
         function drawThreeCards() {
-            
+            // Nonaktifkan tombol
             drawCardsBtn.disabled = true;
             drawCardsBtn.textContent = 'Mengambil Kartu...';
 
-            
+            // Bersihkan tampilan sebelumnya
             tarotSpreadDiv.innerHTML = '';
             cardInterpretationsDiv.innerHTML = '';
 
-            
+            // Kocok kartu dan ambil 3
             const shuffledCards = shuffleArray(tarotCards);
             const selectedCards = shuffledCards.slice(0, 3); 
 
             const positions = ["Masa Lalu", "Masa Kini", "Masa Depan"];
 
-            
             let delay = 0;
             selectedCards.forEach((card, index) => {
                 setTimeout(() => {
-                    
+                    // Buat slot kartu
                     const cardSlot = document.createElement('div');
                     cardSlot.classList.add('card-slot');
                     
+                    // Tambahkan label posisi (Masa Lalu, Sekarang, Depan)
                     const positionSpan = document.createElement('span');
                     positionSpan.textContent = positions[index];
                     cardSlot.appendChild(positionSpan);
 
+                    // Tambahkan gambar kartu (akan kosong jika card.image adalah string kosong)
                     const cardImg = document.createElement('img');
                     cardImg.src = card.image; 
                     cardImg.alt = card.name;
-                    
-                    
-                    cardImg.style.display = 'block';
-                    cardImg.style.backgroundColor = 'transparent'; 
-                    cardImg.style.textAlign = 'center';
-                    cardImg.style.lineHeight = '300px';
-                    cardImg.style.color = '#fff';
-                    cardImg.src = ''; 
-                    
+                    cardSlot.appendChild(cardImg); 
+
+                    // Tambahkan teks nama kartu di bawah gambar
                     const cardNameText = document.createElement('div');
+                    cardNameText.classList.add('card-name-text'); 
                     cardNameText.textContent = card.name;
-                    cardNameText.style.color = '#ffcc66';
-                    cardNameText.style.fontSize = '1.2em';
-                    cardNameText.style.fontWeight = 'bold';
-                    cardNameText.style.marginTop = '20px';
                     cardSlot.appendChild(cardNameText);
 
-                    cardSlot.classList.add('revealed'); // Tetap tampilkan slot dengan animasi
+                    cardSlot.classList.add('revealed'); 
                     tarotSpreadDiv.appendChild(cardSlot);
 
                     // Tampilkan interpretasi setelah semua kartu muncul
                     if (index === selectedCards.length - 1) {
                         setTimeout(() => {
                             displayInterpretations(selectedCards, positions);
-                            drawCardsBtn.disabled = false; // Aktifkan kembali tombol
+                            drawCardsBtn.disabled = false; 
                             drawCardsBtn.textContent = 'Ambil Kartu Lagi';
-                        }, 1000); // Penundaan tambahan setelah kartu terakhir muncul
+                        }, 1000); 
                     }
                 }, delay);
-                delay += 700; // Penundaan untuk setiap kartu (0.7 detik)
+                delay += 700; 
             });
         }
 
