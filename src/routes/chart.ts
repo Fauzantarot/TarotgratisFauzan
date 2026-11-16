@@ -7,7 +7,7 @@ import { serializeBodyGraph, buildSubjectMeta, ok } from "../lib/format";
 
 export const chartRouter = Router();
 
-chartRouter.post("/chart", validateBody(chartBody), (_req, res) => {
+chartRouter.post("/", validateBody(chartBody), (_req, res) => {
   const b = res.locals.valid as ChartBody;
   const r = resolveBirth(b);
 
