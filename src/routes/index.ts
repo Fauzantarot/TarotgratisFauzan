@@ -7,8 +7,8 @@ import { metaRouter } from "./meta";
 
 export const v1Router = Router();
 
-v1Router.use(chartRouter);
-v1Router.use(connectionRouter);
-v1Router.use(transitsRouter);
-v1Router.use(referenceRouter);
-v1Router.use(metaRouter);
+v1Router.use("/chart", chartRouter);
+v1Router.use("/connection", connectionRouter);
+v1Router.use("/transits", transitsRouter);
+v1Router.use("/reference", referenceRouter);
+v1Router.use("/meta", metaRouter);
